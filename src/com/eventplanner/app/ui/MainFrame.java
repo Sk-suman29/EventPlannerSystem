@@ -73,6 +73,57 @@ public class MainFrame extends JFrame {
 
         return menuBar;
     }
+    private void logout() {
+        int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "Do you really want to logout?",
+                "Confirm Logout",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            AppContext.clearCurrentUser();
+            dispose();
+            LoginFrame login = new LoginFrame();
+            login.setVisible(true);
+        }
+    }
+
+    private void saveAllData() {
+        ClientService cs = AppContext.getClientService();
+        EventPackageService ps = AppContext.getPackageService();
+        BookingService bs = AppContext.getBookingService();
+
+        boolean ok1 = FileUtil.saveClients(cs, "clients.csv");
+        boolean ok2 = FileUtil.savePackages(ps, "packages.csv");
+        boolean ok3 = FileUtil.saveBookings(bs, "bookings.csv");
+
+        if (ok1 && ok2 && ok3) {
+            JOptionPane.showMessageDialog(this, "Data saved successfully.");
+        } else {
+            JOptionPane.showMessageDialog(this, "Some error occurred while saving.",
+                    "Save Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void loadAllData() {
+        ClientService cs = AppContext.getClientService();
+        EventPackageService ps = AppContext.getPackageService();
+        BookingService bs = AppContext.getBookingService();
+
+        boolean ok1 = FileUtil.loadClients(cs, "clients.csv");
+        boolean ok2 = FileUtil.loadPackages(ps, "packages.csv");
+        boolean ok3 = FileUtil.loadBookings(bs, cs, ps, "bookings.csv");
+
+        if (ok1 && ok2 && ok3) {
+            JOptionPane.showMessageDialog(this, "Data loaded successfully.\n" +
+                    "You may need to reopen tabs or switch tabs to see updated tables.");
+        } else {
+            JOptionPane.showMessageDialog(this, "Some error occurred while loading.",
+                    "Load Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+}
 
 
 

@@ -42,5 +42,37 @@ public class MainFrame extends JFrame {
 
         add(tabs, BorderLayout.CENTER);
     }
+    private JMenuBar createMenuBar() {
+        JMenuBar menuBar = new JMenuBar();
+
+        // Application menu
+        JMenu menuApp = new JMenu("Application");
+        JMenuItem itemLogout = new JMenuItem("Logout");
+        JMenuItem itemExit = new JMenuItem("Exit");
+
+        itemLogout.addActionListener(e -> logout());
+        itemExit.addActionListener(e -> System.exit(0));
+
+        menuApp.add(itemLogout);
+        menuApp.addSeparator();
+        menuApp.add(itemExit);
+
+        // Data menu (save/load)
+        JMenu menuData = new JMenu("Data");
+        JMenuItem itemSave = new JMenuItem("Save All");
+        JMenuItem itemLoad = new JMenuItem("Load All");
+
+        itemSave.addActionListener(e -> saveAllData());
+        itemLoad.addActionListener(e -> loadAllData());
+
+        menuData.add(itemSave);
+        menuData.add(itemLoad);
+
+        menuBar.add(menuApp);
+        menuBar.add(menuData);
+
+        return menuBar;
+    }
+
 
 

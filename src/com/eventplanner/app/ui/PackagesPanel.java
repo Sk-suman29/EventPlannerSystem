@@ -54,6 +54,31 @@ public class PackagesPanel extends JPanel {
 
         add(scroll, BorderLayout.CENTER);
 
+        // Search panel
+        JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        searchPanel.setBorder(BorderFactory.createTitledBorder("Search"));
+        txtSearch = new JTextField(20);
+        JButton btnSearch = new JButton("Search");
+        JButton btnReset = new JButton("Reset");
 
-}
+        searchPanel.add(new JLabel("Search:"));
+        searchPanel.add(txtSearch);
+        searchPanel.add(btnSearch);
+        searchPanel.add(btnReset);
+
+        add(searchPanel, BorderLayout.SOUTH);
+
+        // Load existing data (if loaded by FileUtil before)
+        refreshTable();
+
+        // Button actions
+        btnAdd.addActionListener(e -> addPackage());
+        btnSearch.addActionListener(e -> applyFilter());
+        btnReset.addActionListener(e -> resetFilter());
+
+        applyRoleBasedAccess();
+    }
+
+
+
 }

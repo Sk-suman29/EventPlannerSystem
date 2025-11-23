@@ -87,3 +87,46 @@ public class AdminPanel extends JPanel {
 
         refreshStats();
     }
+
+    private JButton createMenuButton(String text) {
+        JButton btn = new JButton(text);
+        btn.setMaximumSize(new Dimension(250, 130));
+        btn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btn.setBackground(new Color(143, 163, 177));
+        btn.setForeground(Color.DARK_GRAY);
+        btn.setFocusPainted(false);
+        btn.setFont(new Font("Monospaced", Font.BOLD, 18));
+        btn.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
+        return btn;
+    }
+
+    private void refreshStats() {
+        ClientService cs = AppContext.getClientService();
+        EventPackageService ps = AppContext.getPackageService();
+        BookingService bs = AppContext.getBookingService();
+
+        lblClientCount.setText("Total Clients: " + cs.getClients().size());
+        lblPackageCount.setText("Total Packages: " + ps.getPackages().size());
+        lblBookingCount.setText("Total Bookings: " + bs.getBookings().size());
+    }
+
+
+    private void exportReports() {
+        ClientService cs = AppContext.getClientService();
+        EventPackageService ps = AppContext.getPackageService();
+        BookingService bs = AppContext.getBookingService();
+
+        boolean ok1 = FileUtil.saveClients(cs, "clients.csv");
+        boolean ok2 = FileUtil.savePackages(ps, "packages.csv");
+        boolean ok3 = FileUtil.saveBookings(bs, "bookings.csv");
+
+        if (ok1 && ok2 && ok3) {
+            JOptionPane.showMessageDialog(this,
+                    "Reports exported to clients.csv, packages.csv, bookings.csv");
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "Error exporting reports",
+                    "Export Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+}

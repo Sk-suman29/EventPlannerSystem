@@ -130,3 +130,40 @@ public class FileUtil {
             return false;
         }
     }
+    // ---- helpers ----
+
+    private static String escape(String s) {
+        if (s == null) return "";
+        return s.replace("\\", "\\\\").replace(",", "\\,");
+    }
+
+    private static String unescape(String s) {
+        if (s == null) return "";
+        return s.replace("\\,", ",").replace("\\\\", "\\");
+    }
+
+    private static String[] splitCsv(String line, int expectedParts) {
+        StringBuilder current = new StringBuilder();
+        String[] result = new String[expectedParts];
+        int index = 0;
+        boolean escaping = false;
+
+        for (char ch : line.toCharArray()) {
+            if (escaping) {
+                current.append(ch);
+                escaping = false;
+            } else if (ch == '\\') {
+                escaping = true;
+            } else if (ch == ',') {
+                if (index >= expectedParts) return null;
+                result[index++] = current.toString();
+                current.setLength(0);
+            } else {
+                current.append(ch);
+            }
+        }
+        if (index != expectedParts - 1) return null;
+        result[index] = current.toString();
+        return result;
+    }
+}

@@ -71,4 +71,34 @@ public class EventPackageService {
         }
         return null;
     }
+    public void updatePackage(EventPackage p) {
+        String sql = "UPDATE event_packages SET category = ?, name = ?, price = ? WHERE id = ?";
 
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, p.getCategory());
+            ps.setString(2, p.getName());
+            ps.setDouble(3, p.getPrice());
+            ps.setInt(4, p.getId());
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deletePackage(int id) {
+        String sql = "DELETE FROM event_packages WHERE id = ?";
+
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}

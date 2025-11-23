@@ -43,7 +43,7 @@ public class BookingPanel extends JPanel {
         setLayout(new BorderLayout());
         setBackground(DARK_BLUE);
 
-        // FORM PANEL (TOP)
+        // FORM
 
         JPanel form = new JPanel(new GridBagLayout());
         form.setBackground(Color.WHITE);
@@ -103,7 +103,7 @@ public class BookingPanel extends JPanel {
 
         add(form, BorderLayout.NORTH);
 
-        // TABLE PANEL
+        // TABLE
 
         tableModel = new DefaultTableModel(
                 new Object[]{"BOOKING ID", "CLIENT", "PACKAGE", "EVENT DATE"}, 0
@@ -131,7 +131,7 @@ public class BookingPanel extends JPanel {
         scroll.setBorder(BorderFactory.createTitledBorder("BOOKINGS LIST"));
         add(scroll, BorderLayout.CENTER);
 
-        // SEARCH PANEL
+        // SEARCH
 
         JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         searchPanel.setBackground(CREAM);
@@ -155,16 +155,118 @@ public class BookingPanel extends JPanel {
 
         add(searchPanel, BorderLayout.SOUTH);
 
+
         loadComboData();
         refreshTable();
+
 
         btnReload.addActionListener(e -> loadComboData());
         btnCreate.addActionListener(e -> createBooking());
         btnSearch.addActionListener(e -> applyFilter());
         btnReset.addActionListener(e -> resetFilter());
         btnInvoice.addActionListener(e -> printInvoice());
+    }
 
+    // HELPER METHODS
 
+    private JTextField createInputField() {
+        JTextField field = new JTextField();
+        field.setFont(new Font("Monospaced", Font.PLAIN, 14));
+        field.setBackground(LIGHT_GRAY);
+        field.setBorder(BorderFactory.createLineBorder(DARK_BLUE, 1));
+        return field;
+    }
 
+    private JButton createButton(String text) {
+        JButton btn = new JButton(text);
+        btn.setFocusPainted(false);
+        btn.setBackground(CREAM);
+        btn.setForeground(DARK_BLUE);
+        btn.setFont(new Font("Monospaced", Font.BOLD, 14));
+        btn.setBorder(BorderFactory.createEmptyBorder(5, 12, 5, 12));
+        return btn;
+    }
+
+    private void loadComboData() {
+        cbClient.removeAllItems();
+        for (Client c : clientService.getClients()) cbClient.addItem(c);
+
+        cbPackage.removeAllItems();
+        for (EventPackage p : packageService.getPackages()) cbPackage.addItem(p);
+    }
+
+    private void createBooking() {
+        try {
+            String id = txtBookingId.getText().trim();
+            String date = txtEventDate.getText().trim();
+
+            Client client = (Client) cbClient.getSelectedItem();
+            EventPackage pkg = (EventPackage) cbPackage.getSelectedItem();
+
+            if (id.isEmpty() || date.isEmpty() || client == null || pkg == null)
+                throw new IllegalArgumentException("All fields are required!");
+
+            Booking b = new Booking(id, client, pkg, date);
+            bookingService.createBooking(b);
+
+            tableModel.addRow(new Object[]{
+                    id, client.getName(), pkg.getName(), date
+            });
+
+            txtBookingId.setText("");
+            txtEventDate.setText("");
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(),
+                    "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void refreshTable() {
+        tableModel.setRowCount(0);
+        for (Booking b : bookingService.getBookings()) {
+            tableModel.addRow(new Object[]{
+                    b.getBookingId(),
+                    b.getClient().getName(),
+                    b.getEventPackage().getName(),
+                    b.getEventDate()
+            });
+        }
+    }
+
+    private void applyFilter() {
+        String text = txtSearch.getText().trim();
+        rowSorter.setRowFilter(text.isEmpty() ? null : RowFilter.regexFilter("(?i)" + text));
+    }
+
+    private void resetFilter() {
+        txtSearch.setText("");
+        rowSorter.setRowFilter(null);
+    }
+
+    private void printInvoice() {
+        if (table.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Select a booking first!");
+            return;
+        }
+
+        int row = table.convertRowIndexToModel(table.getSelectedRow());
+
+        String bookingId = tableModel.getValueAt(row, 0).toString();
+        String client = tableModel.getValueAt(row, 1).toString();
+        String pkg = tableModel.getValueAt(row, 2).toString();
+        String date = tableModel.getValueAt(row, 3).toString();
+
+        String text =
+                "======== EVENT INVOICE ========\n" +
+                        "Booking ID : " + bookingId + "\n" +
+                        "Client     : " + client + "\n" +
+                        "Package    : " + pkg + "\n" +
+                        "Event Date : " + date + "\n" +
+                        "===============================\n" +
+                        "Thank you for choosing our Event Planner System.";
+
+        JOptionPane.showMessageDialog(this, text,
+                "INVOICE - " + bookingId, JOptionPane.INFORMATION_MESSAGE);
     }
 }

@@ -7,8 +7,6 @@
 .idea/
 out/
 build/
-!/src/main//out/
-!/src/test//out/
 
 ### Eclipse ###
 .apt_generated
@@ -19,8 +17,6 @@ build/
 .springBeans
 .sts4-cache
 bin/
-!/src/main//bin/
-!/src/test//bin/
 
 ### NetBeans ###
 /nbproject/private/
@@ -31,11 +27,6 @@ bin/
 
 ### VS Code ###
 .vscode/
-
-### SQLite Database ###
-*.db
-*.sqlite
-*.sqlite3
 
 ### Mac OS ###
 .DS_Store

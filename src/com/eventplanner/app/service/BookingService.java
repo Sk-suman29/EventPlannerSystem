@@ -58,3 +58,64 @@ public class BookingService {
         }
         return list;
     }
+
+    public Booking getBookingById(String bookingId) {
+        String sql = "SELECT booking_id, client_id, package_id, event_date FROM bookings WHERE booking_id = ?";
+
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, bookingId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    int clientId = rs.getInt("client_id");
+                    int packageId = rs.getInt("package_id");
+                    String date = rs.getString("event_date");
+
+                    Client client = AppContext.getClientService().getClientById(clientId);
+                    EventPackage pkg = AppContext.getPackageService().getPackageById(packageId);
+
+                    if (client != null && pkg != null) {
+                        return new Booking(bookingId, client, pkg, date);
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void updateBooking(Booking b) {
+        String sql = "UPDATE bookings SET client_id = ?, package_id = ?, event_date = ? " +
+                "WHERE booking_id = ?";
+
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, b.getClient().getId());
+            ps.setInt(2, b.getEventPackage().getId());
+            ps.setString(3, b.getEventDate());
+            ps.setString(4, b.getBookingId());
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteBooking(String bookingId) {
+        String sql = "DELETE FROM bookings WHERE booking_id = ?";
+
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, bookingId);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}

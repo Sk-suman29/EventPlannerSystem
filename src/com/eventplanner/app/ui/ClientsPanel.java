@@ -167,3 +167,103 @@ public class ClientsPanel extends JPanel {
         return btn;
     }
 }
+// ---------- CRUD Logic ----------
+private void addClient() {
+    try {
+        int id = Integer.parseInt(txtId.getText().trim());
+        String name = txtName.getText().trim();
+        String phone = txtPhone.getText().trim();
+
+        if (name.isEmpty() || phone.isEmpty())
+            throw new IllegalArgumentException("Name and phone cannot be empty");
+
+        if (clientService.getClientById(id) != null)
+            throw new IllegalArgumentException("Client ID already exists");
+
+        Client c = new Client(id, name, phone);
+        clientService.addClient(c);
+        tableModel.addRow(new Object[]{id, name, phone});
+        clearFields();
+
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+private void updateClient() {
+    try {
+        if (table.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Select a row to update");
+            return;
+        }
+
+        int id = Integer.parseInt(txtId.getText().trim());
+        String name = txtName.getText().trim();
+        String phone = txtPhone.getText().trim();
+
+        if (name.isEmpty() || phone.isEmpty())
+            throw new IllegalArgumentException("Name and phone cannot be empty");
+
+        Client c = clientService.getClientById(id);
+        if (c == null)
+            throw new IllegalArgumentException("Client not found");
+
+        c.setName(name);
+        c.setPhone(phone);
+        clientService.updateClient(c);
+
+        int row = table.convertRowIndexToModel(table.getSelectedRow());
+        tableModel.setValueAt(name, row, 1);
+        tableModel.setValueAt(phone, row, 2);
+
+        JOptionPane.showMessageDialog(this, "Client updated");
+
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+private void deleteClient() {
+    if (table.getSelectedRow() == -1) {
+        JOptionPane.showMessageDialog(this, "Select a row to delete");
+        return;
+    }
+
+    int confirm = JOptionPane.showConfirmDialog(this,
+            "Are you sure you want to delete this client?",
+            "Confirm Delete", JOptionPane.YES_NO_OPTION);
+
+    if (confirm != JOptionPane.YES_OPTION) return;
+
+    int row = table.convertRowIndexToModel(table.getSelectedRow());
+    int id = Integer.parseInt(tableModel.getValueAt(row, 0).toString());
+
+    clientService.deleteClient(id);
+    tableModel.removeRow(row);
+    clearFields();
+}
+
+// Helpers
+private void refreshTable() {
+    tableModel.setRowCount(0);
+    for (Client c : clientService.getClients()) {
+        tableModel.addRow(new Object[]{c.getId(), c.getName(), c.getPhone()});
+    }
+}
+
+private void clearFields() {
+    txtId.setText("");
+    txtName.setText("");
+    txtPhone.setText("");
+    table.clearSelection();
+}
+
+private void applyFilter() {
+    String text = txtSearch.getText().trim();
+    rowSorter.setRowFilter(text.isEmpty() ? null : RowFilter.regexFilter("(?i)" + text));
+}
+
+private void resetFilter() {
+    txtSearch.setText("");
+    rowSorter.setRowFilter(null);
+}

@@ -1,8 +1,8 @@
 package com.eventplanner.app.ui;
 
-import com.eventplanner.app.model.Client;
-import com.eventplanner.app.service.ClientService;
-import com.eventplanner.app.util.AppContext;
+//import com.eventplanner.app.model.Client;
+//import com.eventplanner.app.service.ClientService;
+//import com.eventplanner.app.util.AppContext;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -11,7 +11,7 @@ import java.awt.*;
 
 public class ClientsPanel extends JPanel {
 
-    private final ClientService clientService;
+  //  private final ClientService clientService;
     private final DefaultTableModel tableModel;
 
     private JTextField txtId, txtName, txtPhone;
@@ -25,7 +25,7 @@ public class ClientsPanel extends JPanel {
     private final Color LIGHT_GRAY = new Color(196, 207, 202);
 
     public ClientsPanel() {
-        clientService = AppContext.getClientService();
+        //clientService = AppContext.getClientService();
 
         setLayout(new BorderLayout());
         setBackground(DARK_BLUE);
@@ -132,10 +132,10 @@ public class ClientsPanel extends JPanel {
         btnAdd.addActionListener(e -> addClient());
         btnUpdate.addActionListener(e -> updateClient());
         btnDelete.addActionListener(e -> deleteClient());
-        btnClear.addActionListener(e -> clearFields());
+       // btnClear.addActionListener(e -> clearFields());
 
-        btnSearch.addActionListener(e -> applyFilter());
-        btnReset.addActionListener(e -> resetFilter());
+      //  btnSearch.addActionListener(e -> applyFilter());
+      //  btnReset.addActionListener(e -> resetFilter());
 
         table.getSelectionModel().addListSelectionListener(event -> {
             if (!event.getValueIsAdjusting() && table.getSelectedRow() != -1) {
@@ -177,13 +177,13 @@ public class ClientsPanel extends JPanel {
             if (name.isEmpty() || phone.isEmpty())
                 throw new IllegalArgumentException("Name and phone cannot be empty");
 
-            if (clientService.getClientById(id) != null)
-                throw new IllegalArgumentException("Client ID already exists");
+        //   if (clientService.getClientById(id) != null)
+          //      throw new IllegalArgumentException("Client ID already exists");
 
-            Client c = new Client(id, name, phone);
-            clientService.addClient(c);
+         //   Client c = new Client(id, name, phone);
+         //   clientService.addClient(c);
             tableModel.addRow(new Object[]{id, name, phone});
-            clearFields();
+          //  clearFields();
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -204,13 +204,13 @@ public class ClientsPanel extends JPanel {
             if (name.isEmpty() || phone.isEmpty())
                 throw new IllegalArgumentException("Name and phone cannot be empty");
 
-            Client c = clientService.getClientById(id);
-            if (c == null)
-                throw new IllegalArgumentException("Client not found");
+         //   Client c = clientService.getClientById(id);
+       //     if (c == null)
+      //          throw new IllegalArgumentException("Client not found");
 
-            c.setName(name);
-            c.setPhone(phone);
-            clientService.updateClient(c);
+          //  c.setName(name);
+           // c.setPhone(phone);
+         //   clientService.updateClient(c);
 
             int row = table.convertRowIndexToModel(table.getSelectedRow());
             tableModel.setValueAt(name, row, 1);
@@ -238,33 +238,33 @@ public class ClientsPanel extends JPanel {
         int row = table.convertRowIndexToModel(table.getSelectedRow());
         int id = Integer.parseInt(tableModel.getValueAt(row, 0).toString());
 
-        clientService.deleteClient(id);
+   //     clientService.deleteClient(id);
         tableModel.removeRow(row);
-        clearFields();
+        //clearFields();
     }
 
 
     private void refreshTable() {
         tableModel.setRowCount(0);
-        for (Client c : clientService.getClients()) {
-            tableModel.addRow(new Object[]{c.getId(), c.getName(), c.getPhone()});
+     //   for (Client c : clientService.getClients()) {
+     //       tableModel.addRow(new Object[]{c.getId(), c.getName(), c.getPhone()});
         }
     }
 
-    private void clearFields() {
-        txtId.setText("");
-        txtName.setText("");
-        txtPhone.setText("");
-        table.clearSelection();
-    }
+   // private void clearFields() {
+     //   txtId.setText("");
+       // txtName.setText("");
+        //txtPhone.setText("");
+        //table.clearSelection();
+   // }
 
-    private void applyFilter() {
-        String text = txtSearch.getText().trim();
-        rowSorter.setRowFilter(text.isEmpty() ? null : RowFilter.regexFilter("(?i)" + text));
-    }
+   // private void applyFilter() {
+    //    String text = txtSearch.getText().trim();
+      //  rowSorter.setRowFilter(text.isEmpty() ? null : RowFilter.regexFilter("(?i)" + text));
+  //  }
 
-    private void resetFilter() {
-        txtSearch.setText("");
-        rowSorter.setRowFilter(null);
-    }
-}
+  //  private void resetFilter() {
+     //   txtSearch.setText("");
+       // rowSorter.setRowFilter(null);
+  //  }
+//}

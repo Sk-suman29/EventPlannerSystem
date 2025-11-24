@@ -28,7 +28,7 @@ public class LoginFrame extends JFrame {
         // ------------------ HEADER ------------------
         JPanel header = new JPanel();
         header.setBackground(new Color(30, 42, 86));
-        JLabel lblTitle = new JLabel("Planexa.lk");
+        JLabel lblTitle = new JLabel("MiniBloom Events");
         lblTitle.setForeground(Color.lightGray);
         lblTitle.setFont(new Font("Monospaced", Font.BOLD, 24));
         header.add(lblTitle);

@@ -22,7 +22,7 @@ public class ClientService {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            // In real app, you might throw a custom exception
+
         }
     }
 

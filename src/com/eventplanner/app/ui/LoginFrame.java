@@ -2,7 +2,7 @@ package com.eventplanner.app.ui;
 
 import com.eventplanner.app.exceptions.AuthenticationException;
 import com.eventplanner.app.model.SystemUser;
-import com.eventplanner.app.util.AppContext;
+//import com.eventplanner.app.util.AppContext;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -137,22 +137,22 @@ public class LoginFrame extends JFrame {
         }
 
         try {
-            SystemUser user = AppContext.getAuthService().authenticate(username, password);
-            AppContext.setCurrentUser(user);
+            //SystemUser user = AppContext.getAuthService().authenticate(username, password);
+            //AppContext.setCurrentUser(user);
 
-            new MainFrame().setVisible(true);
+            //new MainFrame().setVisible(true);
             dispose();
 
-        } catch (AuthenticationException ex) {
+        //} catch (AuthenticationException ex) {
             JOptionPane.showMessageDialog(this,
                     "Invalid username or password",
                     "Login Failed",
                     JOptionPane.ERROR_MESSAGE);
-        }
-    }
+        //}
+    //}
 
-    public static void main(String[] args) {
-        try {
+   // public static void main(String[] args) {
+     //   try {
             UIManager.setLookAndFeel(
                     UIManager.getSystemLookAndFeelClassName()
             );

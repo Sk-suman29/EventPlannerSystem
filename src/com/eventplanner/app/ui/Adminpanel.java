@@ -1,7 +1,7 @@
 
 package com.eventplanner.app.ui;
 
-import com.eventplanner.app.service.BookingService;
+/*import com.eventplanner.app.service.BookingService;
 import com.eventplanner.app.service.ClientService;
 import com.eventplanner.app.service.EventPackageService;
 import com.eventplanner.app.util.AppContext;
@@ -129,4 +129,4 @@ public class AdminPanel extends JPanel {
                     "Export Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-}
+}*/

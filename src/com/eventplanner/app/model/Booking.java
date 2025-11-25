@@ -1,31 +1,31 @@
 
 package com.eventplanner.app.model;
 
-public class Booking {
+  /*public class Booking {
 
-    private String bookingId;
-    private Client client;
-    private EventPackage eventPackage;
-    private String eventDate; // e.g. "2025-11-20"
+   private String bookingId;
+   private Client client;
+   private EventPackage eventPackage;
+   private String eventDate; // e.g. "2025-11-20"
 
-    public Booking(String bookingId, Client client, EventPackage eventPackage, String eventDate) {
-        this.bookingId = bookingId;
-        this.client = client;
-        this.eventPackage = eventPackage;
-        this.eventDate = eventDate;
-    }
+   public Booking(String bookingId, client client, EventPackage eventPackage, String eventDate) {
+      this.bookingId = bookingId;
+      this.client = client;
+      this.eventPackage = eventPackage;
+      this.eventDate = eventDate;
+     }
 
-    public String getBookingId() {
+   public String getBookingId() {
         return bookingId;
-    }
+      }
 
-    public Client getClient() {
+   public Client getClient() {
         return client;
-    }
+     }
 
     public EventPackage getEventPackage() {
         return eventPackage;
-    }
+      }
 
     public String getEventDate() {
         return eventDate;
@@ -34,8 +34,8 @@ public class Booking {
     @Override
     public String toString() {
         return "Booking " + bookingId +
-                " | " + client.getName() +
-                " | " + eventPackage.getName() +
-                " | " + eventDate;
+             " | " + client.getName() +
+             " | " + eventPackage.getName() +
+             " | " + eventDate;
     }
-}
+   }*/

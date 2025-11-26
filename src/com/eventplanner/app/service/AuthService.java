@@ -11,7 +11,7 @@ public class AuthService {
     private final List<SystemUser> users = new ArrayList<>();
 
     public AuthService() {
-        // Demo users – you can change passwords/roles
+
         users.add(new SystemUser("admin", "admin123", "ADMIN"));
         users.add(new SystemUser("staff", "staff123", "STAFF"));
     }

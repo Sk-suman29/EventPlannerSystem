@@ -16,8 +16,8 @@ public class SystemUser {
         return username;
     }
 
-    // In a real app you would hash passwords,
-    // but for assignment/demo this is OK.
+
+    //get password
     public String getPassword() {
         return password;
     }

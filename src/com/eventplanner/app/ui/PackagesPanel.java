@@ -1,6 +1,6 @@
 package com.eventplanner.app.ui;
 
-/*import com.eventplanner.app.model.EventPackage;
+import com.eventplanner.app.model.EventPackage;
 import com.eventplanner.app.model.SystemUser;
 import com.eventplanner.app.service.EventPackageService;
 import com.eventplanner.app.util.AppContext;
@@ -217,6 +217,3 @@ public class PackagesPanel extends JPanel {
         rowSorter.setRowFilter(null);
     }
 }
-*/
-
-

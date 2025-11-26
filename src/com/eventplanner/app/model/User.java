@@ -38,4 +38,3 @@ public abstract class User {
         return getUserType() + ": " + id + " - " + name + " (" + phone + ")";
     }
 }
-

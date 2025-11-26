@@ -1,16 +1,16 @@
-
 package com.eventplanner.app.ui;
 
-/*import com.eventplanner.app.service.BookingService;
+import com.eventplanner.app.service.BookingService;
 import com.eventplanner.app.service.ClientService;
 import com.eventplanner.app.service.EventPackageService;
 import com.eventplanner.app.util.AppContext;
 import com.eventplanner.app.util.FileUtil;
 
 import javax.swing.*;
-        import java.awt.*;
+import java.awt.*;
 
-public class AdminPanel extends JPanel {
+public
+class AdminPanel extends JPanel {
 
     private JLabel lblClientCount;
     private JLabel lblPackageCount;
@@ -129,4 +129,4 @@ public class AdminPanel extends JPanel {
                     "Export Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-}*/
+}

@@ -1,56 +1,56 @@
 package com.eventplanner.app.ui;
 
-//import com.eventplanner.app.model.SystemUser;
-//import com.eventplanner.app.service.BookingService;
-//import com.eventplanner.app.service.ClientService;
-//import com.eventplanner.app.service.EventPackageService;
-//import com.eventplanner.app.util.AppContext;
-//import com.eventplanner.app.util.FileUtil;
+import com.eventplanner.app.model.SystemUser;
+import com.eventplanner.app.service.BookingService;
+import com.eventplanner.app.service.ClientService;
+import com.eventplanner.app.service.EventPackageService;
+import com.eventplanner.app.util.AppContext;
+import com.eventplanner.app.util.FileUtil;
 
 import javax.swing.*;
 import java.awt.*;
 
-//public class MainFrame extends JFrame {
+public class MainFrame extends JFrame {
 
-   // public MainFrame() {
+    public MainFrame() {
 
-        //SystemUser user = AppContext.getCurrentUser();
+        SystemUser user = AppContext.getCurrentUser();
 
-       // String title = "Event Planner System";
-        //if (user != null) {
-           // title += "  |  Logged in: " + user.getUsername() + " (" + user.getRole() + ")";
-        //}
-        //setTitle(title);
-        //setSize(1000, 650);
-       // setDefaultCloseOperation(EXIT_ON_CLOSE);
-       // setLocationRelativeTo(null);
+        String title = "Event Planner System";
+        if (user != null) {
+            title += "  |  Logged in: " + user.getUsername() + " (" + user.getRole() + ")";
+        }
+        setTitle(title);
+        setSize(1000, 650);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
 
-       // applyModernUI();
+        applyModernUI();
 
-        //setJMenuBar(createMenuBar());
+        setJMenuBar(createMenuBar());
 
-       // JTabbedPane tabs = new JTabbedPane();
+        JTabbedPane tabs = new JTabbedPane();
 
-       // tabs.setFont(new Font("Segoe UI", Font.BOLD, 15));
-       // tabs.setBackground(new Color(30, 42, 86));
-       // tabs.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
+        tabs.setFont(new Font("Segoe UI", Font.BOLD, 15));
+        tabs.setBackground(new Color(30, 42, 86));
+        tabs.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
 
-       // UIManager.put("TabbedPane.selected", new Color(30, 42, 86));
-       // UIManager.put("TabbedPane.focus", new Color(30, 42, 86));
-       // UIManager.put("TabbedPane.unselectedBackground", new Color(30, 42, 86));
+        UIManager.put("TabbedPane.selected", new Color(30, 42, 86));
+        UIManager.put("TabbedPane.focus", new Color(30, 42, 86));
+        UIManager.put("TabbedPane.unselectedBackground", new Color(30, 42, 86));
 
-        //tabs.addTab("CLIENTS", new ClientsPanel());
-       // tabs.addTab("EVENT_PACKAGES", new PackagesPanel());
-       // tabs.addTab("BOOKINGS", new BookingPanel());
+        tabs.addTab("CLIENTS", new ClientsPanel());
+        tabs.addTab("EVENT_PACKAGES", new PackagesPanel());
+        tabs.addTab("BOOKINGS", new BookingPanel());
 
-        //if (user != null && "ADMIN".equalsIgnoreCase(user.getRole())) {
-           // tabs.addTab("ADMIN", new AdminPanel());
-       // }
+        if (user != null && "ADMIN".equalsIgnoreCase(user.getRole())) {
+            tabs.addTab("ADMIN", new AdminPanel());
+        }
 
-       // add(tabs, BorderLayout.CENTER);
-    //}
-   // private void applyModernUI() {
-       /* UIManager.put("MenuBar.background", new Color(37, 25, 3));
+        add(tabs, BorderLayout.CENTER);
+    }
+    private void applyModernUI() {
+        UIManager.put("MenuBar.background", new Color(37, 25, 3));
         UIManager.put("MenuBar.foreground", Color.lightGray);
         UIManager.put("Menu.foreground",Color.lightGray);
         UIManager.put("MenuItem.background", new Color(30, 42, 86));
@@ -59,11 +59,11 @@ import java.awt.*;
         UIManager.put("TabbedPane.selected", new Color(83, 62, 24));
         UIManager.put("TabbedPane.contentOpaque", false);
         UIManager.put("TabbedPane.focus", new Color(143, 99, 15));
-    }*/
+    }
 
-    //private JMenuBar createMenuBar() {
+    private JMenuBar createMenuBar() {
 
-      /*  JMenuBar menuBar = new JMenuBar();
+        JMenuBar menuBar = new JMenuBar();
         menuBar.setOpaque(true);
         menuBar.setBackground(new Color(30, 42, 86));
         Color cream = new Color(30, 42, 86);
@@ -112,7 +112,7 @@ import java.awt.*;
         menuBar.add(menuData);
 
         return menuBar;
-    //}
+    }
 
     private void logout() {
         int confirm = JOptionPane.showConfirmDialog(
@@ -162,4 +162,4 @@ import java.awt.*;
                     "Load Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-} */
+}

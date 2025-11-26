@@ -1,12 +1,12 @@
 package com.eventplanner.app.ui;
 
-/* import com.eventplanner.app.model.Booking;
-   import com.eventplanner.app.model.Client;
-   import com.eventplanner.app.model.EventPackage;
-   import com.eventplanner.app.service.BookingService;
-   import com.eventplanner.app.service.ClientService;
-   import com.eventplanner.app.service.EventPackageService;
-   import com.eventplanner.app.util.AppContext;
+import com.eventplanner.app.model.Booking;
+import com.eventplanner.app.model.Client;
+import com.eventplanner.app.model.EventPackage;
+import com.eventplanner.app.service.BookingService;
+import com.eventplanner.app.service.ClientService;
+import com.eventplanner.app.service.EventPackageService;
+import com.eventplanner.app.util.AppContext;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -36,9 +36,9 @@ public class BookingPanel extends JPanel {
 
     public BookingPanel() {
 
-       bookingService = AppContext.getBookingService();
-       clientService = AppContext.getClientService();
-       packageService = AppContext.getPackageService();
+        bookingService = AppContext.getBookingService();
+        clientService = AppContext.getClientService();
+        packageService = AppContext.getPackageService();
 
         setLayout(new BorderLayout());
         setBackground(DARK_BLUE);
@@ -269,4 +269,4 @@ public class BookingPanel extends JPanel {
         JOptionPane.showMessageDialog(this, text,
                 "INVOICE - " + bookingId, JOptionPane.INFORMATION_MESSAGE);
     }
-}*/
+}
